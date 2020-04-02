@@ -17,8 +17,9 @@ def search(graph, visited, cur):
         for j in t:
             if j[1] == cur[0]:
                 temp.append(cur)
+                break
             else:
-                search(graph, visited + [j[0]], cur+[j[1]])
+                search(graph, {**visited, **{j[0]: 0}}, cur+[j[1]])
 
 # 读取文件
 data = []
@@ -34,9 +35,11 @@ graph = data
 res = []
 # 用一个set判断是否有重复
 sres = []
-for i in graph:
+while graph:
+    i = graph[0]
+    graph = graph[1:]
     temp = []
-    visited = [i[0]]
+    visited = {i[0]: 0}
     cur = i
     search(graph, visited, cur)
     # print(temp)
