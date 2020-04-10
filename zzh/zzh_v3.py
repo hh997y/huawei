@@ -3,7 +3,6 @@ import time
 def search(cur):
     global graph
     global temp
-    global vis
     t = []
     if cur[-1] in graph:
         g = graph[cur[-1]]
