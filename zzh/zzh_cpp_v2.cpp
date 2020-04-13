@@ -5,8 +5,6 @@ vector<vector<int>> graph;
 unordered_map<unsigned int,int> idHash;
 unordered_map<int,vector<int>> lastlayerHash;
 unordered_map<int,unordered_map<int,int>> tlastlayerHash;
-// vector<unordered_map<int,int>> llastlayer;
-// vector<unsigned int> tmply;
 vector<unsigned int> ids;
 vector<unsigned int> inputs;
 vector<bool> vis;
@@ -39,7 +37,6 @@ void dfs(int head,int cur,int depth,vector<int> &path){
     vis[cur]=true;
     path.push_back(cur);
     for(int &v:graph[cur]){
-        // if(count(lastlayerHash[head].begin(),lastlayerHash[head].end(),v)>0 && depth>=2 && depth<=6 && v>head && !vis[v]){
         if(tlastlayerHash[head].count(v)>0 && depth>=2 && depth<=6 && v>head && !vis[v]){
             vector<unsigned int> tmp;
             for(int &x:path)
@@ -86,27 +83,14 @@ int main()
         graph[u].push_back(v);
 
         if (tlastlayerHash.count(v)>0){
-            // cout<<v<<endl;
-            // lastlayerHash[v].push_back(u);  // x
             tlastlayerHash[v].emplace(u,0);
         }
         else{
-            // cout<<v<<endl;
-            // vector<int> tlast;  // x
-            // tlast.push_back(u);  // x
-            // lastlayerHash.emplace(v, tlast);
             unordered_map<int,int> tt;
             tt.emplace(u,0);
             tlastlayerHash.emplace(v,tt);
         }
     }
-    // auto iter = llastlayer[lastlayerHash[idHash[1086]]].begin();//auto自动识别为迭代器类型unordered_map<int,string>::iterator
-    // while (iter!= llastlayer[lastlayerHash[idHash[1086]]].end())
-    // {  
-    //     cout << ids[iter->first] << "," << iter->second << endl;  
-    //     ++iter;  
-    // }  
-    // cout<<llastlayer[1086]<<endl;
 
     // get res
     vis=vector<bool>(nodeCnt,false);
@@ -160,14 +144,6 @@ int main()
         out<<endl;
     }
 
-    // // cout test
-    // for(int i=0; i<res3.size(); i++){
-    //     for (int j=0; j<res3[i].size(); j++){
-    //         cout<<res3[i][j];
-    //         cout<<" ";
-    //     }
-    //     cout<<" "<<endl;
-    // }
     cout<<num<<endl;
 
     double rtime=(clock()-t)/CLOCKS_PER_SEC;
